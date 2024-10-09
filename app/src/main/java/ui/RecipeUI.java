@@ -37,9 +37,11 @@ public class RecipeUI {
                 switch (choice) {
                     case "1":
                         // 設問1: 一覧表示機能
+                        displayRecipes(fileHandler.readRecipes());
                         break;
                     case "2":
                         // 設問2: 新規登録機能
+                        addNewRecipe();
                         break;
                     case "3":
                         // 設問3: 検索機能
@@ -61,8 +63,25 @@ public class RecipeUI {
      * 設問1: 一覧表示機能
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
      */
-    private void displayRecipes() {
-
+    private void displayRecipes(ArrayList<String> list) {
+        if(list != null){ //RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
+            System.out.println("");
+            System.out.println("Recipes:");
+            System.out.println("-----------------------------------");
+            for(String a : list){
+                String b[] = a.split(",");
+                System.out.println("Recipe Name: " + b[0]);
+                System.out.print("Main Ingredients: ");
+                for(int j = 1; j < b.length-1 ; j++){
+                    System.out.print(b[j] + ",");
+                }
+                System.out.print(b[b.length-1] );
+                System.out.println("");
+                System.out.println("-----------------------------------");
+            }
+        } else { //読み込んだレシピデータが空の場合は、 No recipes available. というメッセージを出力します。
+            System.out.println("No recipes available.");
+        }
     }
 
     /**
@@ -72,7 +91,17 @@ public class RecipeUI {
      * @throws java.io.IOException 入出力が受け付けられない
      */
     private void addNewRecipe() throws IOException {
+        String recipeName;
+        String ingredients;
+        System.out.print("Enter recipe name: "); //ユーザーからレシピ名と主な材料を入力させます
+        recipeName = reader.readLine();
+        System.out.print("Enter main ingredients (comma separated): ");
+        ingredients = reader.readLine();
 
+        RecipeFileHandler add = new RecipeFileHandler(); //RecipeFileHandlerを使用してrecipes.txtに新しいレシピを追加します。
+        add.addRecipe(recipeName, ingredients);
+
+        System.out.println("Recipe added successfully.");
     }
 
     /**
