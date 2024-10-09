@@ -64,7 +64,7 @@ public class RecipeUI {
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
      */
     private void displayRecipes(ArrayList<String> list) {
-        if(list != null){ //RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
+        if(!list.isEmpty()){ //RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
             System.out.println("");
             System.out.println("Recipes:");
             System.out.println("-----------------------------------");
